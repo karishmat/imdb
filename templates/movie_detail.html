@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block search %}
+{% endblock %}
+{% block content %}
+    {% if movie_form %}
+        <form action="" method="post">
+        {% csrf_token %}
+        {{ movie_form |bootstrap_horizontal:'col-lg-4' }}
+        <input type="submit" value="Update" />
+        </form>
+    {% elif movie_form_add %}
+        <form action="" method="post">
+        {% csrf_token %}
+        {{ movie_form_add |bootstrap_horizontal:'col-lg-4' }}
+        <input type="submit" value="Add" />
+        </form>
+
+    {% else %}
+
+    <div class="container movie-detail">
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading">{{ movie_detail.title }}</div>
+                <div class="panel-body">
+                    {% if movie_detail.genre %}<p><b>Genre:</b> {{ movie_detail.genre }}</p>{% endif %}
+                    {% if movie_detail.director %}<p><b>Director:</b> {{ movie_detail.director }}</p>{% endif %}
+                    {% if movie_detail.imdb_score %}<p><b>IMBD Score:</b> {{ movie_detail.imdb_score }}</p>{% endif %}
+                    {% if movie_detail.popularity_score %}
+                        <p><b>Popularity Score:</b> {{ movie_detail.popularity_score }}</p>{% endif %}
+                    {% if movie_detail.description %}
+                        <p><b>Description:</b> {{ movie_detail.description }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}

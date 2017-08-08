@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel-group" id="movie-list">
+            {% for movie in movie_list %}
+                <div class="panel panel-default movie" data-title="{{ movie.title }}">
+                    <div class="panel-heading">
+                        <a href="{{ movie.id }}">{{ movie.title }}</a>
+                        {% if request.user.is_superuser %}
+                            <a href="update/{{ movie.id }}" class="pull-right glyphicon glyphicon-edit"></a>
+                            <a href="delete/{{ movie.id }}" class="pull-right glyphicon glyphicon-trash"></a>
+                        {% endif %}
+                    </div>
+                    <div class="panel-body">
+                        {% if movie.genre %}<p><b>Genere:</b> {{ movie.genre }}</p>{% endif %}
+                        {% if movie.director %}<p><b>Director:</b> {{ movie.director }}</p>{% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

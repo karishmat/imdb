@@ -1,0 +1,47 @@
+<header id="header">
+    <div class="container_padding">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="center">
+                    <input type="text" class="form-control" placeholder="Search Movies" name="q" id="searchInput"
+                           autocomplete="off" onkeyup="searchFunc()">
+                </div>
+
+                {% if request.user.is_authenticated %}
+                    <div id="add_movie" style="float:right">
+                        <a href="create/"><b>Add Movie</b></a>
+                    </div>
+
+                    <div id="logout" style="float:right">
+                        <a href="/api-auth/logout/?next=/api/movie"><b>Logout</b></a>
+                    </div>
+
+                {% else %}
+                    <div id="login" style="float:right">
+                        <a><b>Login</b></a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>
+{% block extrajs %}
+    <script>
+        function searchFunc() {
+            var input, filter, title, li, a, i;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            var movies = document.getElementsByClassName("movie");
+            for (i = 0; i < movies.length; i++) {
+                title = $(movies[i]).attr('data-title');
+                if (title.toUpperCase().indexOf(filter) > -1) {
+                    $(movies[i]).show();
+                } else {
+                    $(movies[i]).hide();
+
+                }
+            }
+        }
+    </script>
+{% endblock %}
+

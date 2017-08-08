@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!-- search results popup -->
+
+{% block search %}
+    {% include "includes/search.html" %}
+{% endblock %}
+
+<br>
+<br>
+<br>
+<!-- search results popup End-->
+
+<!-- login popup start-->
+<div id="login_popup" hidden>
+    <div class="container">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 popup_cont">
+            <div class="login_popup_head">
+                <div class="pull-left">
+                    <span class="btn btn_signin_action active">Sign In</span>
+                </div>
+                <div class="pull-right">
+                    <span class="action_close"><i class="glyphicon glyphicon-remove"></i></span>
+                </div>
+            </div>
+            <div class="login_popup_body">
+                {% include 'account/login.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block content %}
+
+{% endblock %}
+</body>
+{% block javascript %}
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+
+     $('#login_popup .login_popup_head span.btn_signup_action').click(function () {
+        if (!$(this).hasClass('active')) {
+            $('#login_popup .login_popup_head span.btn').removeClass('active');
+            $(this).addClass('active');
+
+            $('#login_popup .login_popup_body .action_login').removeClass('active');
+            $('#login_popup .login_popup_body .signup_action').addClass('active');
+
+        }
+    });
+
+     $('#login').click(function (e) {
+        $('#login_popup').fadeIn(400).show(100).find('.popup_cont').addClass('show');
+
+        if (e.target.className == 'container' || e.target.id == 'login_popup') {
+            $('#login_popup .login_popup_head span.action_close').click();
+        }
+    });
+
+    $('#login-btn').click(function(){
+        $.ajax({
+                url: '/api-auth/login/',
+                type: "POST",
+                data: {
+                    username: $('#username_input').val(),
+                    password: $('#password_input').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                }
+
+                ,success: function (data) {
+                    $('#login_popup').addClass('hide');
+                    window.location.reload()
+
+                }
+            })
+    });
+     $('.action_close').click(function () {
+        $('#login_popup').hide();
+    });
+
+    </script>
+{% endblock %}
+{% block extrajs %}
+{% endblock %}
+</html>
