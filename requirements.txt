@@ -1,8 +1,12 @@
-
-# Bleeding edge Django
-django==1.9.2
-
-# Configuration
+dj-database-url==0.4.2
+Django==1.9.2
+django-bootstrap-form==3.3
 django-environ==0.4.0
-
-django-bootstrap-form
+django-extensions==1.8.1
+django-rest-auth==0.9.1
+djangorestframework==3.6.3
+gunicorn==19.0.0
+Pillow==3.4.2
+psycopg2==2.7.3
+six==1.10.0
+whitenoise==3.0

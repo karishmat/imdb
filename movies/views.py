@@ -8,9 +8,8 @@ def create_movie(request):
     form = MovieForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect('/api/movie')
-    return render(request, 'movie_detail.html', {'movie_form_add': form })
-
+        return redirect('movies-list')
+    return render(request, 'movie_detail.html', {'movie_form_add': form})
 
 
 def update_movie(request, id):
@@ -18,11 +17,11 @@ def update_movie(request, id):
     form = MovieForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
-        return redirect('/api/movie')
-    return render(request, 'movie_detail.html', {'movie_form': form })
+        return redirect('movies-list')
+    return render(request, 'movie_detail.html', {'movie_form': form})
 
 
 def delete_movie(request, id):
     instance = get_object_or_404(Movies, id=id)
     instance.delete()
-    return redirect('/api/movie')
+    return redirect('movies-list')

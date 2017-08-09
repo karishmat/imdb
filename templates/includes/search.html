@@ -8,9 +8,11 @@
                 </div>
 
                 {% if request.user.is_authenticated %}
+                    {% if request.user.is_superuser %}
                     <div id="add_movie" style="float:right">
                         <a href="create/"><b>Add Movie</b></a>
                     </div>
+                    {% endif %}
 
                     <div id="logout" style="float:right">
                         <a href="/api-auth/logout/?next=/api/movie"><b>Logout</b></a>

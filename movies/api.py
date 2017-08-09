@@ -2,7 +2,6 @@ __author__ = 'karishma'
 
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
-from rest_framework.decorators import renderer_classes
 from rest_framework import viewsets
 
 from .serializers import MovieSerializer
@@ -26,4 +25,5 @@ class MovieViewSet(viewsets.ModelViewSet):
         if request.accepted_renderer.format == 'html':
             return Response({'movie_detail': response.data}, template_name='movie_detail.html')
         return response
+
 
