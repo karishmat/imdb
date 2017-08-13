@@ -87,19 +87,44 @@ WSGI_APPLICATION = 'imdb.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'imdb',
+#         'USER': 'karishma',
+#         'PASSWORD': 'admin',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
+env = environ.Env()
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'imdb',
-        'USER': 'karishma',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    # # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
+    'default': env.db("DATABASE_URL", default="postgres:///imdb"),
+
+    # 'default': env.db("DATABASE_URL", default="postgres:///tixdo"),
 }
+
+DATABASES['default']['ATOMIC_REQUESTS'] = True
+
+# Database engine for enabling GEO-LOCATION in Postgres Database
+DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+# DATABASES['default']['NAME'] = 'tixdo'
+# 'contrib.gis.db.backends.py',
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
+
+SECRET_KEY = env("DJANGO_SECRET_KEY", default='!3!9j3v@9w)s%gid%^cevktn_2jma&(q_fs1*s-cwh5b#wvbm5')
+
+# DEBUG = env.bool('DJANGO_DEBUG', default=True)
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#     )
+# }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
