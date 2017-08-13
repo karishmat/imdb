@@ -7,3 +7,8 @@
 6. Add/Update/Remove movie from admin, login by super user: http://localhost:8000/admin/
 7. Can also add/update/remove movie from url if login by super user : http://localhost:8000/api/movie/
 8. Can view and search movie: http://localhost:8000/api/movie/
+
+
+admin user: un: admin  pw:imdb1234
+other user: un: user1  pw:imdb1234
+
